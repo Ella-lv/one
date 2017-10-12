@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 500px;
+            height: 333px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        ul,ol{
+            list-style: none;
+        }
+        ul>li {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        ol{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        ol>li{
+            float:left;
+            width:20px;
+            height:20px;
+            background-color: #00eb00;
+            margin-left: 15px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+        }
+        .active{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul></ul>
+    <ol></ol>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+<script>
+    $(function () {
+        var data =['1.jpg','3.jpg','2.jpg','057.jpg'];
+        var str = '';
+        var str_ol = '';
+        for(var i = 0;i < data.length;i++){
+            str += '<li><img src="'+data[i]+'"></li>';
+            if(i == 0){
+                str_ol +='<li class="active">'+(i+1)+'</li>';
+            }else{
+                str_ol +='<li>'+(i+1)+'</li>';
+            }
+        };
+        $('ul').html(str);
+        $('ol').html(str_ol);
+        $('ul>li').eq(0).siblings().hide();
+        var index = 0;
+        setInterval(function(){
+            index++;
+            index = index > data.length - 1 ? 0 : index;
+            $('ul>li').eq(index).fadeIn().siblings().fadeOut();
+            $('ol>li').eq(index).addClass('active').siblings().removeClass('active');
+        },2000)
+    });
+</script>
+</html>
